@@ -2,12 +2,6 @@ const copy = document.querySelector(".copy");
 const quote = document.querySelector(".quote");
 const card = document.querySelector(".card-body");
 
-const getQuote = (url) => {
-  return fetch(url)
-    .then((response) => response.json())
-    .then((response) => response.quotes);
-};
-
 const showLoading = () => {
   quote.textContent = "";
   card.classList.add("placeholder-glow");
@@ -21,10 +15,10 @@ const hideLoading = () => {
   quote.classList.remove("col-7");
 };
 
-const copyClipboard = () => {
-  navigator.clipboard.writeText(quote.textContent);
-  copy.classList.remove("bi-clipboard");
-  copy.classList.add("bi-clipboard-check-fill");
+const getQuote = (url) => {
+  return fetch(url)
+    .then((response) => response.json())
+    .then((response) => response.quotes);
 };
 
 const author = (nameAuthor) => {
@@ -34,7 +28,15 @@ const author = (nameAuthor) => {
   quote.appendChild(span);
 };
 
-const refresh = async () => {
+const copyClipboard = document.querySelector(".copy");
+copyClipboard.addEventListener("click", () => {
+  navigator.clipboard.writeText(quote.textContent);
+  copy.classList.remove("bi-clipboard");
+  copy.classList.add("bi-clipboard-check-fill");
+});
+
+const refresh = document.querySelector(".refresh");
+refresh.addEventListener("click", async () => {
   copy.classList.remove("bi-clipboard-check-fill");
   copy.classList.add("bi-clipboard");
   try {
@@ -47,4 +49,4 @@ const refresh = async () => {
   } finally {
     hideLoading();
   }
-};
+});
