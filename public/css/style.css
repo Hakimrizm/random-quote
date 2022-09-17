@@ -1,0 +1,12 @@
+.pointer {
+  cursor: pointer;
+}
+
+span.author {
+  display: block;
+  font-style: italic;
+}
+
+span.author::before {
+  content: "~ ";
+}
